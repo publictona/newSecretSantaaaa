@@ -1,5 +1,6 @@
 const express = require("express");
 const { assignSecretSanta } = require("../utils/santaAssigner");
+const Assignment = require("../routes/assignments");
 const router = express.Router();
 
 router.post("/generate", async (req, res) => {
@@ -12,5 +13,7 @@ router.post("/generate", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
 
 module.exports = router;

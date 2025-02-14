@@ -1,59 +1,69 @@
-const Employee = require("../models/Employee");
-const Assignment = require("../models/Assignment");
+const fs = require("fs").promises;
+const path = require("path");
 
+const dbFilePath = path.join(__dirname, "db.json");
+
+// Shuffle function to randomize the employees
 const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
 
-/**
- * Assigns secret children while avoiding last year's assignments.
- * @returns {Promise<Array<Object>>} - The new assignments.
- */
-async function assignSecretSanta() {
-  
-  const employees = await Employee.find();
-  if (employees.length < 2) throw new Error("Not enough employees for Secret Santa!");
+async function assignSecretSanta(year) {
+  try {
+    // Read the database file
+    const data = await fs.readFile(dbFilePath, "utf8");
+    const db = JSON.parse(data);
 
-  const lastYearAssignments = await Assignment.find({ year: new Date().getFullYear() - 1 });
-  const lastYearMap = new Map();
-  
-  lastYearAssignments.forEach(({ employeeEmail, secretChildEmail }) => {
-    lastYearMap.set(employeeEmail, secretChildEmail);
-  });
+    const employees = db.employees;
+    if (employees.length < 2) throw new Error("Not enough employees for Secret Santa!");
 
-  let availableChildren = [...employees];
-  let success = false;
+    // Get last year's assignments
+    const lastYearAssignments = db.assignments.filter(a => a.year === year - 1);
+    const lastYearMap = new Map(lastYearAssignments.map(a => [a.employeeEmail, a.secretChildEmail]));
 
-  for (let i = 0; i < 100; i++) {
-    availableChildren = shuffleArray([...employees]); // Shuffle employees
-    let valid = true;
-    const assignments = employees.map(emp => {
-      const possibleChildren = availableChildren.filter(child =>
-        child.email !== emp.email &&
-        lastYearMap.get(emp.email) !== child.email
-      );
+    let success = false;
+    let assignments = [];
 
-      if (possibleChildren.length === 0) {
-        valid = false; // No valid assignment, retry
-        return null;
+    for (let i = 0; i < 100; i++) {
+      let availableChildren = shuffleArray([...employees]);
+      let tempAssignments = [];
+      let valid = true;
+
+      for (let emp of employees) {
+        const possibleChildren = availableChildren.filter(child =>
+          child.email !== emp.email && lastYearMap.get(emp.email) !== child.email
+        );
+
+        if (possibleChildren.length === 0) {
+          valid = false;
+          break;
+        }
+
+        const assignedChild = possibleChildren[0];
+        availableChildren = availableChildren.filter(c => c.email !== assignedChild.email);
+
+        tempAssignments.push({
+          employeeEmail: emp.email,
+          secretChildEmail: assignedChild.email,
+          year,
+        });
       }
 
-      const assignedChild = possibleChildren[0];
-      availableChildren = availableChildren.filter(c => c !== assignedChild);
-
-      return {
-        employeeEmail: emp.email,
-        secretChildEmail: assignedChild.email,
-        year: new Date().getFullYear(),
-      };
-    });
-
-    if (valid) {
-      success = true;
-      await Assignment.insertMany(assignments);
-      return assignments;
+      if (valid) {
+        success = true;
+        assignments = tempAssignments;
+        break;
+      }
     }
+
+    if (!success) throw new Error("Failed to generate a valid Secret Santa assignment.");
+
+    // Save the assignments back to db.json
+    db.assignments.push(...assignments);
+    await fs.writeFile(dbFilePath, JSON.stringify(db, null, 2));
+
+    return assignments;
+  } catch (error) {
+    console.error("🔥 Error in assignSecretSanta:", error);
+    throw error;
   }
- if (!success) throw new Error("Failed to generate a valid Secret Santa assignment.")
-
 }
-
 module.exports = { assignSecretSanta };

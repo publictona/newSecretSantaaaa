@@ -1,0 +1,141 @@
+{
+  "employees": [
+    {
+      "name": "Hamish Murray",
+      "email": "hamish.murray@acme.com"
+    },
+    {
+      "name": "Layla Graham",
+      "email": "layla.graham@acme.com"
+    },
+    {
+      "name": "Matthew King",
+      "email": "matthew.king@acme.com"
+    },
+    {
+      "name": "Benjamin Collins",
+      "email": "benjamin.collins@acme.com"
+    },
+    {
+      "name": "Isabella Scott",
+      "email": "isabella.scott@acme.com"
+    },
+    {
+      "name": "Charlie Ross",
+      "email": "charlie.ross@acme.com"
+    },
+    {
+      "name": "Hamish Murray",
+      "email": "hamish.murray.sr@acme.com"
+    },
+    {
+      "name": "Piper Stewart",
+      "email": "piper.stewart@acme.com"
+    },
+    {
+      "name": "Spencer Allen",
+      "email": "spencer.allen@acme.com"
+    },
+    {
+      "name": "Charlie Wright",
+      "email": "charlie.wright@acme.com"
+    },
+    {
+      "name": "Hamish Murray",
+      "email": "hamish.murray.jr@acme.com"
+    },
+    {
+      "name": "Charlie Ross",
+      "email": "charlie.ross.jr@acme.com"
+    },
+    {
+      "name": "Ethan Murray",
+      "email": "ethan.murray@acme.com"
+    },
+    {
+      "name": "Matthew King",
+      "email": "matthew.king.jr@acme.com"
+    },
+    {
+      "name": "Mark Lawrence",
+      "email": "mark.lawrence@acme.com"
+    }
+  ],
+  "assignments": [
+    {
+      "employeeEmail": "hamish.murray@acme.com",
+      "secretChildEmail": "layla.graham@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "layla.graham@acme.com",
+      "secretChildEmail": "hamish.murray.sr@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "matthew.king@acme.com",
+      "secretChildEmail": "hamish.murray.jr@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "benjamin.collins@acme.com",
+      "secretChildEmail": "matthew.king.jr@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "isabella.scott@acme.com",
+      "secretChildEmail": "matthew.king@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "charlie.ross@acme.com",
+      "secretChildEmail": "mark.lawrence@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "hamish.murray.sr@acme.com",
+      "secretChildEmail": "charlie.ross@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "piper.stewart@acme.com",
+      "secretChildEmail": "isabella.scott@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "spencer.allen@acme.com",
+      "secretChildEmail": "charlie.wright@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "charlie.wright@acme.com",
+      "secretChildEmail": "hamish.murray@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "hamish.murray.jr@acme.com",
+      "secretChildEmail": "piper.stewart@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "charlie.ross.jr@acme.com",
+      "secretChildEmail": "spencer.allen@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "ethan.murray@acme.com",
+      "secretChildEmail": "benjamin.collins@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "matthew.king.jr@acme.com",
+      "secretChildEmail": "ethan.murray@acme.com",
+      "year": 2023
+    },
+    {
+      "employeeEmail": "mark.lawrence@acme.com",
+      "secretChildEmail": "charlie.ross.jr@acme.com",
+      "year": 2023
+    }
+  ]
+}
